@@ -26,7 +26,7 @@ Download and install the latest version of
 
 1. Download this fork of cpp-ethereum
 ```
-git clone --recursive https://github.com/ArtSabintsev/cpp-ethereum.git
+git clone --recursive https://github.com/ArtSabintsev/Ethminer-for-macOS
 ```
 
 2. Enter the downloaded folder and create and enter the `build` directory.
