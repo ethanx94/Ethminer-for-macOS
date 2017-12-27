@@ -49,10 +49,12 @@ void StructuredLogger::outputJson(Json::Value const& _value, std::string const& 
 #if ETH_JSONRPC
 	Json::Value event;
 	static Mutex s_lock;
-	Json::FastWriter fastWriter;
+	Json::StreamWriterBuilder builder;
 	Guard l(s_lock);
 	event[_name] = _value;
-	(m_out.is_open() ? m_out : cout) << fastWriter.write(event) << endl;
+
+	(m_out.is_open() ? m_out : cout) << builder.newStreamWriter() -> write(event, &std::cout);
+	cout << endl;
 #else
 	(void)_value;
 	(void)_name;
