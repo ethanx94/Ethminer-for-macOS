@@ -8,7 +8,7 @@
   - Genoil: 0xeb9310b185455f863f526dab3d245809f6854b4d
 
 ## Summary
-This is a fork of the [cpp-ethereum](https://github.com/ethereum/cpp-ethereum) project that works on macOS 10.12.x (Sierra).
+This is a fork of the [cpp-ethereum](https://github.com/ethereum/cpp-ethereum) project that works on macOS 10.12.x (Sierra) and 10.13.x (High Sierra).
 
 This specific repo was forked from [Genoil's cpp-ethereum Repo](https://github.com/Genoil/cpp-ethereum), which itself was forked from the official aforementined repo. This fork was made in response to the lack of maintained macOS support from Genoil's fork and from the [Official Homebrew Ethereum Formula](https://github.com/ethereum/homebrew-ethereum/).
 
