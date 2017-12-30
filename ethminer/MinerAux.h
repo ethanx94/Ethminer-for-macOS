@@ -259,7 +259,7 @@ public:
 		{
 			m_worktimeout = atoi(argv[++i]);
 		}
-		
+
 #endif
 #if ETH_ETHASHCL || !ETH_TRUE
 		else if (arg == "--opencl-platform" && i + 1 < argc)
@@ -508,7 +508,7 @@ public:
 				EthashGPUMiner::setDevices(m_openclDevices, m_openclDeviceCount);
 				m_miningThreads = m_openclDeviceCount;
 			}
-			
+
 			if (!EthashGPUMiner::configureGPU(
 					m_localWorkSize,
 					m_globalWorkSizeMultiplier,
@@ -535,7 +535,7 @@ public:
 				EthashCUDAMiner::setDevices(m_cudaDevices, m_cudaDeviceCount);
 				m_miningThreads = m_cudaDeviceCount;
 			}
-			
+
 			EthashCUDAMiner::setNumInstances(m_miningThreads);
 			if (!EthashCUDAMiner::configureGPU(
 				m_localWorkSize,
@@ -557,7 +557,7 @@ public:
 			doBenchmark(m_minerType, m_phoneHome, m_benchmarkWarmup, m_benchmarkTrial, m_benchmarkTrials);
 		else if (mode == OperationMode::Farm)
 			doFarm(m_minerType, m_activeFarmURL, m_farmRecheckPeriod);
-		else if (mode == OperationMode::Simulation) 
+		else if (mode == OperationMode::Simulation)
 			doSimulation(m_minerType);
 #if ETH_STRATUM || !ETH_TRUE
 		else if (mode == OperationMode::Stratum)
@@ -643,7 +643,7 @@ private:
 		exit(0);
 	}
 
-	
+
 
 	void doBenchmark(MinerType _m, bool _phoneHome, unsigned _warmupDuration = 15, unsigned _trialDuration = 3, unsigned _trials = 5)
 	{
@@ -688,7 +688,7 @@ private:
 				cout << "Warming up..." << endl;
 			else
 				cout << "Trial " << i << "... " << flush;
-			this_thread::sleep_for(chrono::seconds(i ? _trialDuration : _warmupDuration));
+			this_thread::sleep_for(std::chrono::seconds(i ? _trialDuration : _warmupDuration));
 
 			auto mp = f.miningProgress();
 			f.resetMiningProgress();
@@ -780,7 +780,7 @@ private:
 				f.resetMiningProgress();
 
 				cnote << "Mining on difficulty " << difficulty << " " << mp;
-				this_thread::sleep_for(chrono::milliseconds(1000));
+				this_thread::sleep_for(std::chrono::milliseconds(1000));
 				time++;
 			}
 			cnote << "Difficulty:" << difficulty << "  Nonce:" << solution.nonce.hex();
@@ -814,7 +814,7 @@ private:
 		}
 	}
 
-	
+
 	void doFarm(MinerType _m, string & _remote, unsigned _recheckPeriod)
 	{
 		map<string, GenericFarm<EthashProofOfWork>::SealerDescriptor> sealers;
@@ -896,7 +896,7 @@ private:
 						f.setWork(current);
 						x_current.unlock();
 					}
-					this_thread::sleep_for(chrono::milliseconds(_recheckPeriod));
+					this_thread::sleep_for(std::chrono::milliseconds(_recheckPeriod));
 				}
 				cnote << "Solution found; Submitting to" << _remote << "...";
 				cnote << "  Nonce:" << solution.nonce.hex();
@@ -936,7 +936,7 @@ private:
 			{
 				if (m_maxFarmRetries > 0)
 				{
-					for (auto i = 3; --i; this_thread::sleep_for(chrono::seconds(1)))
+					for (auto i = 3; --i; this_thread::sleep_for(std::chrono::seconds(1)))
 						cerr << "JSON-RPC problem. Probably couldn't connect. Retrying in " << i << "... \r";
 					cerr << endl;
 				}
@@ -963,7 +963,7 @@ private:
 						}
 						m_farmRetries = 0;
 					}
-					
+
 				}
 			}
 #endif
@@ -983,7 +983,7 @@ private:
 #endif
 		if (!m_farmRecheckSet)
 			m_farmRecheckPeriod = m_defaultStratumFarmRecheckPeriod;
-		
+
 		GenericFarm<EthashProofOfWork> f;
 
 		// this is very ugly, but if Stratum Client V2 tunrs out to be a success, V1 will be completely removed anyway
@@ -1024,7 +1024,7 @@ private:
 					else if (client.waitState() == MINER_WAIT_STATE_WORK)
 						minelog << "Waiting for work package...";
 				}
-				this_thread::sleep_for(chrono::milliseconds(m_farmRecheckPeriod));
+				this_thread::sleep_for(std::chrono::milliseconds(m_farmRecheckPeriod));
 			}
 		}
 		else if (m_stratumClientVersion == 2) {
@@ -1059,7 +1059,7 @@ private:
 					else if (client.waitState() == MINER_WAIT_STATE_WORK)
 						minelog << "Waiting for work package...";
 				}
-				this_thread::sleep_for(chrono::milliseconds(m_farmRecheckPeriod));
+				this_thread::sleep_for(std::chrono::milliseconds(m_farmRecheckPeriod));
 			}
 		}
 
@@ -1106,7 +1106,7 @@ private:
 	/// Farm params
 	string m_farmURL = "http://127.0.0.1:8545";
 	string m_farmFailOverURL = "";
-	
+
 
 	string m_activeFarmURL = m_farmURL;
 	unsigned m_farmRetries = 0;
