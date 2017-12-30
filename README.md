@@ -1,8 +1,7 @@
 # Ethminer for macOS
 
 ## Meta
-- Current Version: **1.0.3**
-- Release Date: **December 27, 2017**
+- Current Version: Check the [Releases](https://github.com/ArtSabintsev/Ethminer-for-macOS/releases) tab. 
 - Also known as _cpp-ethereum_ and _c++-ethereum_.
 - Ethereum Donations:
   - Me: 0x1e8cce03A2C01d18C5a68F410bfE34eea1aa16f2
