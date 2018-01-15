@@ -17,7 +17,8 @@ The conversation that led to this fork can be found at https://github.com/ethere
 ## Pre-Installation Instructions
 Download and install the latest version of
 - Xcode 
-    - For Nvidia Cards - Xcode 8.2 Command Line Tools at http://adcdownload.apple.com/Developer_Tools/Command_Line_Tools_macOS_10.12_for_Xcode_8.2/Command_Line_Tools_macOS_10.12_for_Xcode_8.2.dmg
+    - For Nvidia Cards - Xcode 7.3 Command Line Tools at https://download.developer.apple.com/Developer_Tools/Command_Line_Tools_OS_X_10.11_for_Xcode_7.3/Command_Line_Tools_OS_X_10.11_for_Xcode_7.3.dmg
+    - Afterwards run `sudo xcode-select --switch /Library/Developer/CommandLineTools`
     - For everything else - Xcode 8.3.3 or newer at https://developer.apple.com/xcode
 - Homebrew from https://brew.sh
 
@@ -55,6 +56,24 @@ cmake --build .
 
 ## Launching `ethminer`
 Once installation succedes, go to the `ethminer` directory (from the build directory). Type in `./ethminer` and you're good to go.
+
+## Issues
+```
+nvcc fatal : The version ('90000') of the host compiler ('Apple clang') is not supported
+```
+Ensure you have installed Xcode CLT 7.3 and switched using the xcode-select command as outline above.
+Verify that clang has been downgraded via `clang --version`
+
+```
+nvcc fatal : Unsupported gpu architecture 'compute_20'
+```
+Modify the generated CMAKE file at `build/libethash-cuda/CMakeFiles/ethash-cuda.dir/ethash-cuda_generated_ethash_cuda_miner_kernel.cu.o.Release.cmake`
+
+Around `set(CUDA_NVCC_FLAGS)` 
+
+Remove the following flag: `-gencode arch=compute_20,code=sm_20`
+
+Run the `make` command again.
 
 ## Support
 While I am a full-time programmer, I do not use C/C++ in my daily life, at least not at a level where I can actively develop this fork. |I will do my best to support the fork. 
